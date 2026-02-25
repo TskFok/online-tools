@@ -1,73 +1,88 @@
-# React + TypeScript + Vite
+# 在线工具集
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+常用开发工具，开箱即用。基于 React + TypeScript + Vite 构建的 Web 应用。
 
-Currently, two official plugins are available:
+## 功能列表
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Babel](https://babeljs.io/) (or [oxc](https://oxc.rs) when used in [rolldown-vite](https://vite.dev/guide/rolldown)) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+### JSON 工具
 
-## React Compiler
+| 工具 | 路径 | 描述 |
+|------|------|------|
+| **JSON 美化/压缩** | `/json-formatter` | 格式化、美化、压缩 JSON 字符串，支持语法高亮和错误提示 |
+| **序列化转 JSON** | `/serialize-to-json` | 将 QueryString、PHP Serialize、键值对等序列化字符串转为 JSON |
 
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
+### 编码工具
 
-## Expanding the ESLint configuration
+| 工具 | 路径 | 描述 |
+|------|------|------|
+| **Base64 编码/解码** | `/base64` | Base64 编码与解码，支持 UTF-8 中文字符 |
+| **URL 编码/解码** | `/url-codec` | URL 编码与解码，支持 encodeURI 和 encodeURIComponent |
 
-If you are developing a production application, we recommend updating the configuration to enable type-aware lint rules:
+### 生成器
 
-```js
-export default defineConfig([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
+| 工具 | 路径 | 描述 |
+|------|------|------|
+| **二维码生成** | `/qrcode` | 输入文本或链接生成二维码，支持尺寸、纠错级别和颜色配置 |
+| **条形码生成** | `/barcode` | 生成多种格式条形码，支持 CODE128、EAN13、CODE39 等 |
 
-      // Remove tseslint.configs.recommended and replace with this
-      tseslint.configs.recommendedTypeChecked,
-      // Alternatively, use this for stricter rules
-      tseslint.configs.strictTypeChecked,
-      // Optionally, add this for stylistic rules
-      tseslint.configs.stylisticTypeChecked,
+## 技术栈
 
-      // Other configs...
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
+- **框架**: React 19 + TypeScript
+- **构建**: Vite 7
+- **样式**: Tailwind CSS 4
+- **路由**: React Router DOM 7
+- **其他**: qrcode.react、react-barcode、react-hot-toast、react-icons
+
+## 快速开始
+
+### 安装依赖
+
+```bash
+npm install
 ```
 
-You can also install [eslint-plugin-react-x](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-x) and [eslint-plugin-react-dom](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-dom) for React-specific lint rules:
+### 开发
 
-```js
-// eslint.config.js
-import reactX from 'eslint-plugin-react-x'
-import reactDom from 'eslint-plugin-react-dom'
-
-export default defineConfig([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
-      // Enable lint rules for React
-      reactX.configs['recommended-typescript'],
-      // Enable lint rules for React DOM
-      reactDom.configs.recommended,
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
+```bash
+npm run dev
 ```
+
+### 构建
+
+```bash
+npm run build
+```
+
+### 预览构建结果
+
+```bash
+npm run preview
+```
+
+### 测试
+
+```bash
+npm run test
+```
+
+### 代码检查
+
+```bash
+npm run lint
+```
+
+## 项目结构
+
+```
+src/
+├── components/     # 通用组件
+├── config/         # 工具配置
+├── pages/          # 页面组件
+├── utils/          # 工具函数
+├── __tests__/      # 单元测试
+└── App.tsx
+```
+
+## License
+
+MIT

@@ -16,6 +16,8 @@
 | 工具 | 路径 | 描述 |
 |------|------|------|
 | **Base64 编码/解码** | `/base64` | Base64 编码与解码，支持 UTF-8 中文字符 |
+| **时间戳转换** | `/timestamp` | 时间戳与日期时间互相转换，支持秒和毫秒单位 |
+| **Unicode 编码转换** | `/unicode` | ASCII/Unicode/中文互转，支持 \uXXXX 和 U+XXXX 格式 |
 | **URL 编码/解码** | `/url-codec` | URL 编码与解码，支持 encodeURI 和 encodeURIComponent |
 
 ### 生成器

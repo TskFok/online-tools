@@ -2,7 +2,7 @@ import type { IconType } from 'react-icons'
 import { VscJson } from 'react-icons/vsc'
 import { TbTransform } from 'react-icons/tb'
 import { BiCodeBlock } from 'react-icons/bi'
-import { FiLink } from 'react-icons/fi'
+import { FiLink, FiClock, FiCode } from 'react-icons/fi'
 import { BsQrCode } from 'react-icons/bs'
 import { AiOutlineBarcode } from 'react-icons/ai'
 
@@ -34,6 +34,20 @@ export const tools: ToolConfig[] = [
     path: '/base64',
     icon: BiCodeBlock,
     description: 'Base64 编码与解码，支持 UTF-8 中文字符',
+    category: '编码',
+  },
+  {
+    name: '时间戳转换',
+    path: '/timestamp',
+    icon: FiClock,
+    description: '时间戳与日期时间互相转换，支持秒和毫秒单位',
+    category: '编码',
+  },
+  {
+    name: 'Unicode 编码转换',
+    path: '/unicode',
+    icon: FiCode,
+    description: 'ASCII/Unicode/中文互转，支持 \\uXXXX 和 U+XXXX 格式',
     category: '编码',
   },
   {

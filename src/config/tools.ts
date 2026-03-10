@@ -2,7 +2,7 @@ import type { IconType } from 'react-icons'
 import { VscJson } from 'react-icons/vsc'
 import { TbTransform } from 'react-icons/tb'
 import { BiCodeBlock } from 'react-icons/bi'
-import { FiLink, FiClock, FiCode } from 'react-icons/fi'
+import { FiLink, FiClock, FiCode, FiShuffle, FiType } from 'react-icons/fi'
 import { BsQrCode } from 'react-icons/bs'
 import { AiOutlineBarcode } from 'react-icons/ai'
 
@@ -69,6 +69,20 @@ export const tools: ToolConfig[] = [
     path: '/barcode',
     icon: AiOutlineBarcode,
     description: '生成多种格式条形码，支持 CODE128、EAN13、CODE39 等',
+    category: '生成器',
+  },
+  {
+    name: '随机数生成',
+    path: '/random-number',
+    icon: FiShuffle,
+    description: '生成指定范围内的随机整数或小数，支持批量生成',
+    category: '生成器',
+  },
+  {
+    name: '随机字符串生成',
+    path: '/random-string',
+    icon: FiType,
+    description: '生成随机字符串，支持选择长度、大写、小写、数字、特殊字符',
     category: '生成器',
   },
 ]

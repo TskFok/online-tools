@@ -1,5 +1,5 @@
 import type { IconType } from 'react-icons'
-import { VscJson } from 'react-icons/vsc'
+import { VscGraph, VscJson, VscMarkdown } from 'react-icons/vsc'
 import { TbTransform } from 'react-icons/tb'
 import { BiCodeBlock } from 'react-icons/bi'
 import { FiLink, FiClock, FiCode, FiShuffle, FiType } from 'react-icons/fi'
@@ -84,5 +84,19 @@ export const tools: ToolConfig[] = [
     icon: FiType,
     description: '生成随机字符串，支持选择长度、大写、小写、数字、特殊字符',
     category: '生成器',
+  },
+  {
+    name: 'Mermaid 图表',
+    path: '/mermaid',
+    icon: VscGraph,
+    description: '实时渲染流程图、时序图等 Mermaid 图表，支持主题切换与导出 SVG',
+    category: '可视化',
+  },
+  {
+    name: 'Markdown 预览',
+    path: '/markdown',
+    icon: VscMarkdown,
+    description: 'GFM 表格与任务列表、代码块与 Mermaid 图表预览，可选剥离 YAML 头',
+    category: '文档',
   },
 ]

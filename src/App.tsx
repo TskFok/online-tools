@@ -12,6 +12,8 @@ import QrCodeGenerator from './pages/QrCodeGenerator'
 import BarcodeGenerator from './pages/BarcodeGenerator'
 import RandomNumberGenerator from './pages/RandomNumberGenerator'
 import RandomStringGenerator from './pages/RandomStringGenerator'
+import MermaidRenderer from './pages/MermaidRenderer'
+import MarkdownRenderer from './pages/MarkdownRenderer'
 
 export default function App() {
   return (
@@ -30,6 +32,8 @@ export default function App() {
           <Route path="/barcode" element={<BarcodeGenerator />} />
           <Route path="/random-number" element={<RandomNumberGenerator />} />
           <Route path="/random-string" element={<RandomStringGenerator />} />
+          <Route path="/mermaid" element={<MermaidRenderer />} />
+          <Route path="/markdown" element={<MarkdownRenderer />} />
         </Route>
       </Routes>
     </BrowserRouter>

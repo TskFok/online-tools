@@ -1,5 +1,6 @@
 import { BrowserRouter, Routes, Route } from 'react-router-dom'
 import { Toaster } from 'react-hot-toast'
+import { routerBasenameFromViteBase } from './utils/routerBasename'
 import Layout from './components/Layout'
 import Home from './pages/Home'
 import JsonFormatter from './pages/JsonFormatter'
@@ -15,9 +16,11 @@ import RandomStringGenerator from './pages/RandomStringGenerator'
 import MermaidRenderer from './pages/MermaidRenderer'
 import MarkdownRenderer from './pages/MarkdownRenderer'
 
+const routerBasename = routerBasenameFromViteBase(import.meta.env.BASE_URL)
+
 export default function App() {
   return (
-    <BrowserRouter>
+    <BrowserRouter basename={routerBasename}>
       <Toaster position="top-center" toastOptions={{ duration: 2000 }} />
       <Routes>
         <Route element={<Layout />}>

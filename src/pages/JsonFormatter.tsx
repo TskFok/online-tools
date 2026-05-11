@@ -1,7 +1,8 @@
-import { useState, useEffect } from 'react'
+import { useState, useCallback } from 'react'
 import { formatJson, compressJson } from '../utils/jsonUtils'
 import CopyButton from '../components/CopyButton'
 import OutputPanel from '../components/OutputPanel'
+import { useDebouncedOutputConvert } from '../hooks/useDebouncedOutputConvert'
 
 export default function JsonFormatter() {
   const [input, setInput] = useState('')
@@ -10,22 +11,27 @@ export default function JsonFormatter() {
   const [indent, setIndent] = useState(2)
   const [jsonOutputKind, setJsonOutputKind] = useState<'pretty' | 'minify'>('pretty')
 
-  useEffect(() => {
-    if (!input.trim()) {
-      setOutput('')
-      setError('')
-      return
-    }
-    const result =
-      jsonOutputKind === 'pretty' ? formatJson(input, indent) : compressJson(input)
-    if (result.success) {
-      setOutput(result.output)
-      setError('')
-    } else {
-      setOutput('')
-      setError(result.error ?? '')
-    }
-  }, [input, indent, jsonOutputKind])
+  const convert = useCallback(
+    (raw: string) => {
+      if (!raw.trim()) {
+        setOutput('')
+        setError('')
+        return
+      }
+      const result =
+        jsonOutputKind === 'pretty' ? formatJson(raw, indent) : compressJson(raw)
+      if (result.success) {
+        setOutput(result.output)
+        setError('')
+      } else {
+        setOutput('')
+        setError(result.error ?? '')
+      }
+    },
+    [indent, jsonOutputKind],
+  )
+
+  useDebouncedOutputConvert(input, convert, [indent, jsonOutputKind])
 
   const handleClear = () => {
     setInput('')

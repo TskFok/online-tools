@@ -1,7 +1,8 @@
-import { useState, useEffect } from 'react'
+import { useState, useCallback } from 'react'
 import { textToUnicode, unicodeToText, type UnicodeFormat } from '../utils/unicodeUtils'
 import CopyButton from '../components/CopyButton'
 import OutputPanel from '../components/OutputPanel'
+import { useDebouncedOutputConvert } from '../hooks/useDebouncedOutputConvert'
 
 export default function UnicodeCodec() {
   const [input, setInput] = useState('')
@@ -10,22 +11,27 @@ export default function UnicodeCodec() {
   const [mode, setMode] = useState<'encode' | 'decode'>('encode')
   const [format, setFormat] = useState<UnicodeFormat>('escape')
 
-  useEffect(() => {
-    if (!input.trim()) {
-      setOutput('')
-      setError('')
-      return
-    }
-    const result =
-      mode === 'encode' ? textToUnicode(input, format) : unicodeToText(input)
-    if (result.success) {
-      setOutput(result.output)
-      setError('')
-    } else {
-      setOutput('')
-      setError(result.error ?? '')
-    }
-  }, [input, mode, format])
+  const convert = useCallback(
+    (raw: string) => {
+      if (!raw.trim()) {
+        setOutput('')
+        setError('')
+        return
+      }
+      const result =
+        mode === 'encode' ? textToUnicode(raw, format) : unicodeToText(raw)
+      if (result.success) {
+        setOutput(result.output)
+        setError('')
+      } else {
+        setOutput('')
+        setError(result.error ?? '')
+      }
+    },
+    [mode, format],
+  )
+
+  useDebouncedOutputConvert(input, convert, [mode, format])
 
   const handleClear = () => {
     setInput('')

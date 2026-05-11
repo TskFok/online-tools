@@ -1,7 +1,8 @@
-import { useState, useEffect } from 'react'
+import { useState, useCallback } from 'react'
 import { serializeToJson, type SerializeFormat } from '../utils/jsonUtils'
 import CopyButton from '../components/CopyButton'
 import OutputPanel from '../components/OutputPanel'
+import { useDebouncedOutputConvert } from '../hooks/useDebouncedOutputConvert'
 
 const formatOptions: { value: SerializeFormat; label: string }[] = [
   { value: 'auto', label: '自动检测' },
@@ -16,21 +17,26 @@ export default function SerializeToJson() {
   const [error, setError] = useState('')
   const [format, setFormat] = useState<SerializeFormat>('auto')
 
-  useEffect(() => {
-    if (!input.trim()) {
-      setOutput('')
-      setError('')
-      return
-    }
-    const result = serializeToJson(input, format)
-    if (result.success) {
-      setOutput(result.output)
-      setError('')
-    } else {
-      setOutput('')
-      setError(result.error ?? '')
-    }
-  }, [input, format])
+  const convert = useCallback(
+    (raw: string) => {
+      if (!raw.trim()) {
+        setOutput('')
+        setError('')
+        return
+      }
+      const result = serializeToJson(raw, format)
+      if (result.success) {
+        setOutput(result.output)
+        setError('')
+      } else {
+        setOutput('')
+        setError(result.error ?? '')
+      }
+    },
+    [format],
+  )
+
+  useDebouncedOutputConvert(input, convert, [format])
 
   const handleClear = () => {
     setInput('')

@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react'
+import { useState, useCallback } from 'react'
 import {
   timestampToDate,
   dateToTimestamp,
@@ -7,6 +7,7 @@ import {
 } from '../utils/timestampUtils'
 import CopyButton from '../components/CopyButton'
 import OutputPanel from '../components/OutputPanel'
+import { useDebouncedOutputConvert } from '../hooks/useDebouncedOutputConvert'
 
 export default function TimestampConverter() {
   const [input, setInput] = useState('')
@@ -15,24 +16,29 @@ export default function TimestampConverter() {
   const [mode, setMode] = useState<'toDate' | 'toTimestamp'>('toDate')
   const [unit, setUnit] = useState<TimestampUnit>('s')
 
-  useEffect(() => {
-    if (!input.trim()) {
-      setOutput('')
-      setError('')
-      return
-    }
-    const result =
-      mode === 'toDate'
-        ? timestampToDate(input, unit)
-        : dateToTimestamp(input, unit)
-    if (result.success) {
-      setOutput(result.output)
-      setError('')
-    } else {
-      setOutput('')
-      setError(result.error ?? '')
-    }
-  }, [input, mode, unit])
+  const convert = useCallback(
+    (raw: string) => {
+      if (!raw.trim()) {
+        setOutput('')
+        setError('')
+        return
+      }
+      const result =
+        mode === 'toDate'
+          ? timestampToDate(raw, unit)
+          : dateToTimestamp(raw, unit)
+      if (result.success) {
+        setOutput(result.output)
+        setError('')
+      } else {
+        setOutput('')
+        setError(result.error ?? '')
+      }
+    },
+    [mode, unit],
+  )
+
+  useDebouncedOutputConvert(input, convert, [mode, unit])
 
   const handleClear = () => {
     setInput('')

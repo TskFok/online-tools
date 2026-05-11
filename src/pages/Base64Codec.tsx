@@ -1,7 +1,8 @@
-import { useState, useEffect } from 'react'
+import { useState, useCallback } from 'react'
 import { base64Encode, base64Decode } from '../utils/base64Utils'
 import CopyButton from '../components/CopyButton'
 import OutputPanel from '../components/OutputPanel'
+import { useDebouncedOutputConvert } from '../hooks/useDebouncedOutputConvert'
 
 export default function Base64Codec() {
   const [input, setInput] = useState('')
@@ -9,21 +10,26 @@ export default function Base64Codec() {
   const [error, setError] = useState('')
   const [mode, setMode] = useState<'encode' | 'decode'>('encode')
 
-  useEffect(() => {
-    if (!input.trim()) {
-      setOutput('')
-      setError('')
-      return
-    }
-    const result = mode === 'encode' ? base64Encode(input) : base64Decode(input)
-    if (result.success) {
-      setOutput(result.output)
-      setError('')
-    } else {
-      setOutput('')
-      setError(result.error ?? '')
-    }
-  }, [input, mode])
+  const convert = useCallback(
+    (raw: string) => {
+      if (!raw.trim()) {
+        setOutput('')
+        setError('')
+        return
+      }
+      const result = mode === 'encode' ? base64Encode(raw) : base64Decode(raw)
+      if (result.success) {
+        setOutput(result.output)
+        setError('')
+      } else {
+        setOutput('')
+        setError(result.error ?? '')
+      }
+    },
+    [mode],
+  )
+
+  useDebouncedOutputConvert(input, convert, [mode])
 
   const handleClear = () => {
     setInput('')

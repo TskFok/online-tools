@@ -1,7 +1,8 @@
-import { useState, useEffect } from 'react'
+import { useState, useCallback } from 'react'
 import { urlEncode, urlDecode, type UrlEncodeMode } from '../utils/urlUtils'
 import CopyButton from '../components/CopyButton'
 import OutputPanel from '../components/OutputPanel'
+import { useDebouncedOutputConvert } from '../hooks/useDebouncedOutputConvert'
 
 export default function UrlCodec() {
   const [input, setInput] = useState('')
@@ -10,22 +11,27 @@ export default function UrlCodec() {
   const [mode, setMode] = useState<'encode' | 'decode'>('encode')
   const [encodeMode, setEncodeMode] = useState<UrlEncodeMode>('component')
 
-  useEffect(() => {
-    if (!input.trim()) {
-      setOutput('')
-      setError('')
-      return
-    }
-    const result =
-      mode === 'encode' ? urlEncode(input, encodeMode) : urlDecode(input, encodeMode)
-    if (result.success) {
-      setOutput(result.output)
-      setError('')
-    } else {
-      setOutput('')
-      setError(result.error ?? '')
-    }
-  }, [input, mode, encodeMode])
+  const convert = useCallback(
+    (raw: string) => {
+      if (!raw.trim()) {
+        setOutput('')
+        setError('')
+        return
+      }
+      const result =
+        mode === 'encode' ? urlEncode(raw, encodeMode) : urlDecode(raw, encodeMode)
+      if (result.success) {
+        setOutput(result.output)
+        setError('')
+      } else {
+        setOutput('')
+        setError(result.error ?? '')
+      }
+    },
+    [mode, encodeMode],
+  )
+
+  useDebouncedOutputConvert(input, convert, [mode, encodeMode])
 
   const handleClear = () => {
     setInput('')

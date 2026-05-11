@@ -1,6 +1,7 @@
-import { useCallback, useState, type ReactNode } from 'react'
+import { useCallback, useLayoutEffect, useState, type ReactNode } from 'react'
 import { FiChevronDown, FiChevronRight } from 'react-icons/fi'
 import { splitSearchMatches } from '../utils/textSearchHighlight'
+import { jsonPathPrefixesToUncollapseForFirstSearchHit } from '../utils/jsonSearchNavigate'
 
 export type JsonPath = (string | number)[]
 
@@ -75,6 +76,18 @@ const CHILD_INDENT = 'ml-4 pl-3 border-l border-gray-200'
 
 export default function JsonTreeView({ data, searchQuery }: JsonTreeViewProps) {
   const [collapsed, setCollapsed] = useState<Set<string>>(() => new Set())
+
+  useLayoutEffect(() => {
+    const prefixes = jsonPathPrefixesToUncollapseForFirstSearchHit(data, searchQuery)
+    if (prefixes.length === 0) return
+    setCollapsed((prev) => {
+      const next = new Set(prev)
+      for (const p of prefixes) {
+        next.delete(pathToKey(p))
+      }
+      return next
+    })
+  }, [data, searchQuery])
 
   const toggle = useCallback((path: JsonPath) => {
     const k = pathToKey(path)

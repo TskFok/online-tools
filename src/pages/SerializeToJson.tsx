@@ -1,4 +1,4 @@
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
 import { serializeToJson, type SerializeFormat } from '../utils/jsonUtils'
 import CopyButton from '../components/CopyButton'
 import OutputPanel from '../components/OutputPanel'
@@ -16,7 +16,12 @@ export default function SerializeToJson() {
   const [error, setError] = useState('')
   const [format, setFormat] = useState<SerializeFormat>('auto')
 
-  const handleConvert = () => {
+  useEffect(() => {
+    if (!input.trim()) {
+      setOutput('')
+      setError('')
+      return
+    }
     const result = serializeToJson(input, format)
     if (result.success) {
       setOutput(result.output)
@@ -25,7 +30,7 @@ export default function SerializeToJson() {
       setOutput('')
       setError(result.error ?? '')
     }
-  }
+  }, [input, format])
 
   const handleClear = () => {
     setInput('')
@@ -38,13 +43,6 @@ export default function SerializeToJson() {
       <h1 className="text-xl font-bold text-gray-800 mb-5">序列化字符串转 JSON</h1>
 
       <div className="flex flex-wrap items-center gap-3 mb-4">
-        <button
-          onClick={handleConvert}
-          className="px-4 py-2 text-sm font-medium text-white bg-blue-600 rounded-lg hover:bg-blue-700 transition-colors cursor-pointer"
-        >
-          转换
-        </button>
-
         <label className="flex items-center gap-2 text-sm text-gray-600">
           格式:
           <select

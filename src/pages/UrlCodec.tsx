@@ -1,4 +1,4 @@
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
 import { urlEncode, urlDecode, type UrlEncodeMode } from '../utils/urlUtils'
 import CopyButton from '../components/CopyButton'
 import OutputPanel from '../components/OutputPanel'
@@ -10,7 +10,12 @@ export default function UrlCodec() {
   const [mode, setMode] = useState<'encode' | 'decode'>('encode')
   const [encodeMode, setEncodeMode] = useState<UrlEncodeMode>('component')
 
-  const handleConvert = () => {
+  useEffect(() => {
+    if (!input.trim()) {
+      setOutput('')
+      setError('')
+      return
+    }
     const result =
       mode === 'encode' ? urlEncode(input, encodeMode) : urlDecode(input, encodeMode)
     if (result.success) {
@@ -20,7 +25,7 @@ export default function UrlCodec() {
       setOutput('')
       setError(result.error ?? '')
     }
-  }
+  }, [input, mode, encodeMode])
 
   const handleClear = () => {
     setInput('')
@@ -31,8 +36,6 @@ export default function UrlCodec() {
   const handleSwap = () => {
     setMode(mode === 'encode' ? 'decode' : 'encode')
     setInput(output)
-    setOutput('')
-    setError('')
   }
 
   return (
@@ -70,13 +73,6 @@ export default function UrlCodec() {
             <option value="uri">encodeURI</option>
           </select>
         </label>
-
-        <button
-          onClick={handleConvert}
-          className="px-4 py-2 text-sm font-medium text-white bg-blue-600 rounded-lg hover:bg-blue-700 transition-colors cursor-pointer"
-        >
-          转换
-        </button>
 
         <button
           onClick={handleSwap}

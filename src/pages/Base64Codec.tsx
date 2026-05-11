@@ -1,4 +1,4 @@
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
 import { base64Encode, base64Decode } from '../utils/base64Utils'
 import CopyButton from '../components/CopyButton'
 import OutputPanel from '../components/OutputPanel'
@@ -9,7 +9,12 @@ export default function Base64Codec() {
   const [error, setError] = useState('')
   const [mode, setMode] = useState<'encode' | 'decode'>('encode')
 
-  const handleConvert = () => {
+  useEffect(() => {
+    if (!input.trim()) {
+      setOutput('')
+      setError('')
+      return
+    }
     const result = mode === 'encode' ? base64Encode(input) : base64Decode(input)
     if (result.success) {
       setOutput(result.output)
@@ -18,7 +23,7 @@ export default function Base64Codec() {
       setOutput('')
       setError(result.error ?? '')
     }
-  }
+  }, [input, mode])
 
   const handleClear = () => {
     setInput('')
@@ -29,8 +34,6 @@ export default function Base64Codec() {
   const handleSwap = () => {
     setMode(mode === 'encode' ? 'decode' : 'encode')
     setInput(output)
-    setOutput('')
-    setError('')
   }
 
   return (
@@ -56,13 +59,6 @@ export default function Base64Codec() {
             解码
           </button>
         </div>
-
-        <button
-          onClick={handleConvert}
-          className="px-4 py-2 text-sm font-medium text-white bg-blue-600 rounded-lg hover:bg-blue-700 transition-colors cursor-pointer"
-        >
-          转换
-        </button>
 
         <button
           onClick={handleSwap}

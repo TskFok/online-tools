@@ -1,4 +1,4 @@
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
 import {
   timestampToDate,
   dateToTimestamp,
@@ -15,7 +15,12 @@ export default function TimestampConverter() {
   const [mode, setMode] = useState<'toDate' | 'toTimestamp'>('toDate')
   const [unit, setUnit] = useState<TimestampUnit>('s')
 
-  const handleConvert = () => {
+  useEffect(() => {
+    if (!input.trim()) {
+      setOutput('')
+      setError('')
+      return
+    }
     const result =
       mode === 'toDate'
         ? timestampToDate(input, unit)
@@ -27,7 +32,7 @@ export default function TimestampConverter() {
       setOutput('')
       setError(result.error ?? '')
     }
-  }
+  }, [input, mode, unit])
 
   const handleClear = () => {
     setInput('')
@@ -37,8 +42,6 @@ export default function TimestampConverter() {
 
   const handleUseCurrent = () => {
     setInput(getCurrentTimestamp(unit))
-    setOutput('')
-    setError('')
   }
 
   const handleSwap = () => {
@@ -50,8 +53,6 @@ export default function TimestampConverter() {
       if (isoMatch) nextInput = isoMatch[1].trim()
     }
     setInput(nextInput)
-    setOutput('')
-    setError('')
   }
 
   return (
@@ -93,13 +94,6 @@ export default function TimestampConverter() {
             <option value="ms">毫秒</option>
           </select>
         </label>
-
-        <button
-          onClick={handleConvert}
-          className="px-4 py-2 text-sm font-medium text-white bg-blue-600 rounded-lg hover:bg-blue-700 transition-colors cursor-pointer"
-        >
-          转换
-        </button>
 
         <button
           onClick={handleUseCurrent}

@@ -1,4 +1,4 @@
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
 import { textToUnicode, unicodeToText, type UnicodeFormat } from '../utils/unicodeUtils'
 import CopyButton from '../components/CopyButton'
 import OutputPanel from '../components/OutputPanel'
@@ -10,7 +10,12 @@ export default function UnicodeCodec() {
   const [mode, setMode] = useState<'encode' | 'decode'>('encode')
   const [format, setFormat] = useState<UnicodeFormat>('escape')
 
-  const handleConvert = () => {
+  useEffect(() => {
+    if (!input.trim()) {
+      setOutput('')
+      setError('')
+      return
+    }
     const result =
       mode === 'encode' ? textToUnicode(input, format) : unicodeToText(input)
     if (result.success) {
@@ -20,7 +25,7 @@ export default function UnicodeCodec() {
       setOutput('')
       setError(result.error ?? '')
     }
-  }
+  }, [input, mode, format])
 
   const handleClear = () => {
     setInput('')
@@ -31,8 +36,6 @@ export default function UnicodeCodec() {
   const handleSwap = () => {
     setMode(mode === 'encode' ? 'decode' : 'encode')
     setInput(output)
-    setOutput('')
-    setError('')
   }
 
   return (
@@ -78,13 +81,6 @@ export default function UnicodeCodec() {
             </select>
           </label>
         )}
-
-        <button
-          onClick={handleConvert}
-          className="px-4 py-2 text-sm font-medium text-white bg-blue-600 rounded-lg hover:bg-blue-700 transition-colors cursor-pointer"
-        >
-          转换
-        </button>
 
         <button
           onClick={handleSwap}

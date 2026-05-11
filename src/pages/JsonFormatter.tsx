@@ -1,6 +1,7 @@
 import { useState } from 'react'
 import { formatJson, compressJson, highlightJson } from '../utils/jsonUtils'
 import CopyButton from '../components/CopyButton'
+import OutputPanel from '../components/OutputPanel'
 
 export default function JsonFormatter() {
   const [input, setInput] = useState('')
@@ -95,16 +96,12 @@ export default function JsonFormatter() {
         </div>
         <div>
           <label className="block text-sm font-medium text-gray-600 mb-2">输出结果</label>
-          {output ? (
-            <pre
-              className="w-full h-[500px] p-4 text-sm border border-gray-300 rounded-lg overflow-auto bg-gray-50 whitespace-pre-wrap break-all"
-              dangerouslySetInnerHTML={{ __html: highlightJson(output) }}
-            />
-          ) : (
-            <div className="w-full h-[500px] p-4 text-sm border border-gray-200 rounded-lg bg-gray-50 text-gray-400 flex items-center justify-center">
-              结果将显示在这里
-            </div>
-          )}
+          <OutputPanel
+            value={output}
+            emptyHint="结果将显示在这里"
+            bodyClassName="h-[500px]"
+            syntaxHtml={output ? highlightJson(output) : undefined}
+          />
         </div>
       </div>
     </div>

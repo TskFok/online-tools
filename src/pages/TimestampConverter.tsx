@@ -6,6 +6,7 @@ import {
   type TimestampUnit,
 } from '../utils/timestampUtils'
 import CopyButton from '../components/CopyButton'
+import OutputPanel from '../components/OutputPanel'
 
 export default function TimestampConverter() {
   const [input, setInput] = useState('')
@@ -151,15 +152,11 @@ export default function TimestampConverter() {
           <label className="block text-sm font-medium text-gray-600 mb-2">
             {mode === 'toDate' ? '日期时间' : '时间戳'}
           </label>
-          {output ? (
-            <pre className="w-full h-[500px] p-4 text-sm border border-gray-300 rounded-lg overflow-auto bg-gray-50 whitespace-pre-wrap break-all">
-              {output}
-            </pre>
-          ) : (
-            <div className="w-full h-[500px] p-4 text-sm border border-gray-200 rounded-lg bg-gray-50 text-gray-400 flex items-center justify-center">
-              结果将显示在这里
-            </div>
-          )}
+          <OutputPanel
+            value={output}
+            emptyHint="结果将显示在这里"
+            bodyClassName="h-[500px]"
+          />
         </div>
       </div>
     </div>

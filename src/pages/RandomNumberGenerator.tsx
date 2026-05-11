@@ -1,6 +1,7 @@
 import { useState } from 'react'
 import { generateRandomNumbers, type RandomType } from '../utils/randomUtils'
 import CopyButton from '../components/CopyButton'
+import OutputPanel from '../components/OutputPanel'
 
 export default function RandomNumberGenerator() {
   const [min, setMin] = useState('0')
@@ -117,15 +118,11 @@ export default function RandomNumberGenerator() {
 
       <div>
         <label className="block text-sm font-medium text-gray-600 mb-2">生成结果</label>
-        {output ? (
-          <pre className="w-full min-h-[200px] p-4 text-sm border border-gray-300 rounded-lg overflow-auto bg-gray-50 whitespace-pre-wrap break-all">
-            {output}
-          </pre>
-        ) : (
-          <div className="w-full min-h-[200px] p-4 text-sm border border-gray-200 rounded-lg bg-gray-50 text-gray-400 flex items-center justify-center">
-            点击「生成」获取随机数
-          </div>
-        )}
+        <OutputPanel
+          value={output}
+          emptyHint="点击「生成」获取随机数"
+          bodyClassName="min-h-[200px]"
+        />
       </div>
     </div>
   )

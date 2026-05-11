@@ -1,6 +1,7 @@
 import { useState } from 'react'
 import { generateRandomStrings, type RandomStringOptions } from '../utils/randomStringUtils'
 import CopyButton from '../components/CopyButton'
+import OutputPanel from '../components/OutputPanel'
 
 export default function RandomStringGenerator() {
   const [length, setLength] = useState('16')
@@ -155,15 +156,12 @@ export default function RandomStringGenerator() {
 
       <div>
         <label className="block text-sm font-medium text-gray-600 mb-2">生成结果</label>
-        {output ? (
-          <pre className="w-full min-h-[200px] p-4 text-sm border border-gray-300 rounded-lg overflow-auto bg-gray-50 whitespace-pre-wrap break-all font-mono">
-            {output}
-          </pre>
-        ) : (
-          <div className="w-full min-h-[200px] p-4 text-sm border border-gray-200 rounded-lg bg-gray-50 text-gray-400 flex items-center justify-center">
-            选择字符类型后点击「生成」获取随机字符串
-          </div>
-        )}
+        <OutputPanel
+          value={output}
+          emptyHint="选择字符类型后点击「生成」获取随机字符串"
+          bodyClassName="min-h-[200px]"
+          preClassName="font-mono"
+        />
       </div>
     </div>
   )

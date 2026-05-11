@@ -1,6 +1,7 @@
 import { useState } from 'react'
 import { textToUnicode, unicodeToText, type UnicodeFormat } from '../utils/unicodeUtils'
 import CopyButton from '../components/CopyButton'
+import OutputPanel from '../components/OutputPanel'
 
 export default function UnicodeCodec() {
   const [input, setInput] = useState('')
@@ -135,15 +136,11 @@ export default function UnicodeCodec() {
           <label className="block text-sm font-medium text-gray-600 mb-2">
             {mode === 'encode' ? 'Unicode 结果' : '解码结果'}
           </label>
-          {output ? (
-            <pre className="w-full h-[500px] p-4 text-sm border border-gray-300 rounded-lg overflow-auto bg-gray-50 whitespace-pre-wrap break-all">
-              {output}
-            </pre>
-          ) : (
-            <div className="w-full h-[500px] p-4 text-sm border border-gray-200 rounded-lg bg-gray-50 text-gray-400 flex items-center justify-center">
-              结果将显示在这里
-            </div>
-          )}
+          <OutputPanel
+            value={output}
+            emptyHint="结果将显示在这里"
+            bodyClassName="h-[500px]"
+          />
         </div>
       </div>
     </div>

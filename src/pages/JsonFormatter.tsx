@@ -1,5 +1,5 @@
 import { useState } from 'react'
-import { formatJson, compressJson, highlightJson } from '../utils/jsonUtils'
+import { formatJson, compressJson } from '../utils/jsonUtils'
 import CopyButton from '../components/CopyButton'
 import OutputPanel from '../components/OutputPanel'
 
@@ -100,7 +100,7 @@ export default function JsonFormatter() {
             value={output}
             emptyHint="结果将显示在这里"
             bodyClassName="h-[500px]"
-            syntaxHtml={output ? highlightJson(output) : undefined}
+            displayMode="jsonTree"
           />
         </div>
       </div>

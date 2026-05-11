@@ -37,3 +37,24 @@ export function countSearchMatches(text: string, query: string): number {
   const re = new RegExp(escapeRegExp(q), 'gi')
   return [...text.matchAll(re)].length
 }
+
+/** 将文本按搜索词切成片段，供 React 渲染高亮（大小写不敏感、字面量匹配） */
+export function splitSearchMatches(
+  text: string,
+  query: string,
+): { text: string; match: boolean }[] {
+  const q = query.trim()
+  if (!q) return [{ text, match: false }]
+  const re = new RegExp(escapeRegExp(q), 'gi')
+  const out: { text: string; match: boolean }[] = []
+  let last = 0
+  let m: RegExpExecArray | null
+  while ((m = re.exec(text)) !== null) {
+    if (m.index > last) out.push({ text: text.slice(last, m.index), match: false })
+    out.push({ text: m[0], match: true })
+    last = m.index + m[0].length
+    if (m[0].length === 0) re.lastIndex++
+  }
+  if (last < text.length) out.push({ text: text.slice(last), match: false })
+  return out
+}

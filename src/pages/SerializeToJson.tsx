@@ -1,5 +1,5 @@
 import { useState } from 'react'
-import { serializeToJson, highlightJson, type SerializeFormat } from '../utils/jsonUtils'
+import { serializeToJson, type SerializeFormat } from '../utils/jsonUtils'
 import CopyButton from '../components/CopyButton'
 import OutputPanel from '../components/OutputPanel'
 
@@ -93,7 +93,7 @@ export default function SerializeToJson() {
             value={output}
             emptyHint="结果将显示在这里"
             bodyClassName="h-[500px]"
-            syntaxHtml={output ? highlightJson(output) : undefined}
+            displayMode="jsonTree"
           />
         </div>
       </div>

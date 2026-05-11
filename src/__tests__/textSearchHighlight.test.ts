@@ -4,6 +4,7 @@ import {
   escapeRegExp,
   highlightSearchInPlainText,
   countSearchMatches,
+  splitSearchMatches,
 } from '../utils/textSearchHighlight'
 
 describe('escapeHtml', () => {
@@ -46,5 +47,22 @@ describe('countSearchMatches', () => {
 
   it('统计不区分大小写出现次数', () => {
     expect(countSearchMatches('AaAaa', 'a')).toBe(5)
+  })
+})
+
+describe('splitSearchMatches', () => {
+  it('空查询返回单片段且不标记为匹配', () => {
+    expect(splitSearchMatches('abc', '')).toEqual([{ text: 'abc', match: false }])
+    expect(splitSearchMatches('abc', '  ')).toEqual([{ text: 'abc', match: false }])
+  })
+
+  it('按匹配切段', () => {
+    expect(splitSearchMatches('aXbXc', 'x')).toEqual([
+      { text: 'a', match: false },
+      { text: 'X', match: true },
+      { text: 'b', match: false },
+      { text: 'X', match: true },
+      { text: 'c', match: false },
+    ])
   })
 })

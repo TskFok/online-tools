@@ -4,6 +4,7 @@ import { routerBasenameFromViteBase } from './utils/routerBasename'
 import Layout from './components/Layout'
 import Home from './pages/Home'
 import JsonFormatter from './pages/JsonFormatter'
+import SqlFormatter from './pages/SqlFormatter'
 import SerializeToJson from './pages/SerializeToJson'
 import Base64Codec from './pages/Base64Codec'
 import TimestampConverter from './pages/TimestampConverter'
@@ -26,6 +27,7 @@ export default function App() {
         <Route element={<Layout />}>
           <Route index element={<Home />} />
           <Route path="/json-formatter" element={<JsonFormatter />} />
+          <Route path="/sql-formatter" element={<SqlFormatter />} />
           <Route path="/serialize-to-json" element={<SerializeToJson />} />
           <Route path="/base64" element={<Base64Codec />} />
           <Route path="/timestamp" element={<TimestampConverter />} />

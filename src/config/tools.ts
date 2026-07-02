@@ -1,6 +1,6 @@
 import type { IconType } from 'react-icons'
 import { VscGraph, VscJson, VscMarkdown } from 'react-icons/vsc'
-import { TbTransform } from 'react-icons/tb'
+import { TbTransform, TbSql } from 'react-icons/tb'
 import { BiCodeBlock } from 'react-icons/bi'
 import { FiLink, FiClock, FiCode, FiShuffle, FiType } from 'react-icons/fi'
 import { BsQrCode } from 'react-icons/bs'
@@ -21,6 +21,13 @@ export const tools: ToolConfig[] = [
     icon: VscJson,
     description: '格式化、美化、压缩 JSON 字符串，支持语法高亮和错误提示',
     category: 'JSON',
+  },
+  {
+    name: 'SQL 美化/压缩',
+    path: '/sql-formatter',
+    icon: TbSql,
+    description: '格式化、美化、压缩 SQL 语句，支持多种数据库方言与关键字大小写',
+    category: '数据库',
   },
   {
     name: '序列化转 JSON',

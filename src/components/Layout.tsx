@@ -21,7 +21,7 @@ export default function Layout() {
           <span className="ml-3 text-lg font-bold text-gray-800">在线工具集</span>
         </header>
 
-        <main className="flex-1 overflow-y-auto p-6">
+        <main className="flex-1 min-h-0 overflow-hidden">
           <Outlet />
         </main>
       </div>

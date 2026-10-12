@@ -8,6 +8,7 @@ import Base64Codec from '../pages/Base64Codec'
 import TimestampConverter from '../pages/TimestampConverter'
 import UnicodeCodec from '../pages/UnicodeCodec'
 import UrlCodec from '../pages/UrlCodec'
+import DataUriImage from '../pages/DataUriImage'
 import QrCodeGenerator from '../pages/QrCodeGenerator'
 import BarcodeGenerator from '../pages/BarcodeGenerator'
 import RandomNumberGenerator from '../pages/RandomNumberGenerator'
@@ -29,6 +30,7 @@ const pageRoutes: PageRoute[] = [
   { path: '/timestamp', component: TimestampConverter },
   { path: '/unicode', component: UnicodeCodec },
   { path: '/url-codec', component: UrlCodec },
+  { path: '/data-uri-image', component: DataUriImage },
   { path: '/qrcode', component: QrCodeGenerator },
   { path: '/barcode', component: BarcodeGenerator },
   { path: '/random-number', component: RandomNumberGenerator },

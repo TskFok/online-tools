@@ -2,7 +2,7 @@ import type { IconType } from 'react-icons'
 import { VscGraph, VscJson, VscMarkdown } from 'react-icons/vsc'
 import { TbTransform, TbSql } from 'react-icons/tb'
 import { BiCodeBlock } from 'react-icons/bi'
-import { FiLink, FiClock, FiCode, FiShuffle, FiType } from 'react-icons/fi'
+import { FiLink, FiClock, FiCode, FiImage, FiShuffle, FiType } from 'react-icons/fi'
 import { BsQrCode } from 'react-icons/bs'
 import { AiOutlineBarcode } from 'react-icons/ai'
 
@@ -62,6 +62,13 @@ export const tools: ToolConfig[] = [
     path: '/url-codec',
     icon: FiLink,
     description: 'URL 编码与解码，支持 encodeURI 和 encodeURIComponent',
+    category: '编码',
+  },
+  {
+    name: 'Data URI 转图片',
+    path: '/data-uri-image',
+    icon: FiImage,
+    description: '将 data:image/png;base64,... 渲染为图片，支持预览与下载',
     category: '编码',
   },
   {

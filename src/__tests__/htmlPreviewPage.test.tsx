@@ -1,5 +1,6 @@
-import { fireEvent, render, screen } from '@testing-library/react'
+import { fireEvent, render, screen, waitFor } from '@testing-library/react'
 import { describe, expect, it } from 'vitest'
+import App from '../App'
 import HtmlPreview from '../pages/HtmlPreview'
 
 describe('HTML 预览页面', () => {
@@ -43,5 +44,15 @@ describe('HTML 预览页面', () => {
     expect(screen.getByPlaceholderText('粘贴 HTML')).toHaveValue('')
     expect(screen.queryByTitle('HTML 预览')).not.toBeInTheDocument()
     expect(screen.getByText('在左侧输入 HTML')).toBeInTheDocument()
+  })
+
+  it('工具列表和路由都提供 HTML 预览', async () => {
+    window.history.pushState({}, '', '/html-preview')
+    render(<App />)
+
+    expect(screen.getByRole('link', { name: 'HTML 预览' })).toHaveAttribute('href', '/html-preview')
+    await waitFor(() => {
+      expect(screen.getByRole('heading', { name: 'HTML 预览' })).toBeVisible()
+    })
   })
 })

@@ -1,6 +1,6 @@
 import type { IconType } from 'react-icons'
 import { VscGraph, VscJson, VscMarkdown } from 'react-icons/vsc'
-import { TbFileTypeXml, TbSql, TbTransform } from 'react-icons/tb'
+import { TbFileTypeHtml, TbFileTypeXml, TbSql, TbTransform } from 'react-icons/tb'
 import { BiCodeBlock } from 'react-icons/bi'
 import { FiLink, FiClock, FiCode, FiImage, FiShuffle, FiType } from 'react-icons/fi'
 import { BsQrCode } from 'react-icons/bs'
@@ -118,6 +118,13 @@ export const tools: ToolConfig[] = [
     path: '/markdown',
     icon: VscMarkdown,
     description: 'GFM 表格与任务列表、代码块与 Mermaid 图表预览，可选剥离 YAML 头',
+    category: '文档',
+  },
+  {
+    name: 'HTML 预览',
+    path: '/html-preview',
+    icon: TbFileTypeHtml,
+    description: '粘贴 HTML 字符串，在沙箱中预览网页；脚本不执行，图片与外部样式可加载',
     category: '文档',
   },
 ]

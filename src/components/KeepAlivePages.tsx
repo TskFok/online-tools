@@ -16,6 +16,7 @@ import RandomNumberGenerator from '../pages/RandomNumberGenerator'
 import RandomStringGenerator from '../pages/RandomStringGenerator'
 import MermaidRenderer from '../pages/MermaidRenderer'
 import MarkdownRenderer from '../pages/MarkdownRenderer'
+import HtmlPreview from '../pages/HtmlPreview'
 
 interface PageRoute {
   path: string
@@ -39,6 +40,7 @@ const pageRoutes: PageRoute[] = [
   { path: '/random-string', component: RandomStringGenerator },
   { path: '/mermaid', component: MermaidRenderer },
   { path: '/markdown', component: MarkdownRenderer },
+  { path: '/html-preview', component: HtmlPreview },
 ]
 
 function stripBasename(pathname: string, basename?: string) {

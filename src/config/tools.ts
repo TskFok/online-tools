@@ -1,6 +1,6 @@
 import type { IconType } from 'react-icons'
 import { VscGraph, VscJson, VscMarkdown } from 'react-icons/vsc'
-import { TbTransform, TbSql } from 'react-icons/tb'
+import { TbFileTypeXml, TbSql, TbTransform } from 'react-icons/tb'
 import { BiCodeBlock } from 'react-icons/bi'
 import { FiLink, FiClock, FiCode, FiImage, FiShuffle, FiType } from 'react-icons/fi'
 import { BsQrCode } from 'react-icons/bs'
@@ -34,6 +34,13 @@ export const tools: ToolConfig[] = [
     path: '/serialize-to-json',
     icon: TbTransform,
     description: '将 QueryString、PHP Serialize、键值对等序列化字符串转为 JSON',
+    category: 'JSON',
+  },
+  {
+    name: 'XML / JSON 互转',
+    path: '/xml-json',
+    icon: TbFileTypeXml,
+    description: 'XML 与 JSON 互相转换，属性用 @_ 前缀，重复节点转为数组',
     category: 'JSON',
   },
   {

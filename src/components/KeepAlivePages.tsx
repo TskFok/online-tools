@@ -4,6 +4,7 @@ import Home from '../pages/Home'
 import JsonFormatter from '../pages/JsonFormatter'
 import SqlFormatter from '../pages/SqlFormatter'
 import SerializeToJson from '../pages/SerializeToJson'
+import XmlJsonConverter from '../pages/XmlJsonConverter'
 import Base64Codec from '../pages/Base64Codec'
 import TimestampConverter from '../pages/TimestampConverter'
 import UnicodeCodec from '../pages/UnicodeCodec'
@@ -26,6 +27,7 @@ const pageRoutes: PageRoute[] = [
   { path: '/json-formatter', component: JsonFormatter },
   { path: '/sql-formatter', component: SqlFormatter },
   { path: '/serialize-to-json', component: SerializeToJson },
+  { path: '/xml-json', component: XmlJsonConverter },
   { path: '/base64', component: Base64Codec },
   { path: '/timestamp', component: TimestampConverter },
   { path: '/unicode', component: UnicodeCodec },

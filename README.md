@@ -10,6 +10,7 @@
 |------|------|------|
 | **JSON 美化/压缩** | `/json-formatter` | 格式化、美化、压缩 JSON 字符串，支持语法高亮和错误提示 |
 | **序列化转 JSON** | `/serialize-to-json` | 将 QueryString、PHP Serialize、键值对等序列化字符串转为 JSON |
+| **XML / JSON 互转** | `/xml-json` | XML 与 JSON 互相转换，属性用 @_ 前缀，重复节点转为数组 |
 
 ### 编码工具
 
@@ -34,7 +35,7 @@
 - **构建**: Vite 7
 - **样式**: Tailwind CSS 4
 - **路由**: React Router DOM 7
-- **其他**: qrcode.react、react-barcode、react-hot-toast、react-icons
+- **其他**: fast-xml-parser、qrcode.react、react-barcode、react-hot-toast、react-icons
 
 ## 快速开始
 

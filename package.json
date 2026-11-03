@@ -12,6 +12,7 @@
     "test:watch": "vitest"
   },
   "dependencies": {
+    "fast-xml-parser": "^5.11.2",
     "mermaid": "^10.9.5",
     "qrcode.react": "^4.2.0",
     "react": "^19.2.0",
